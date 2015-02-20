@@ -38,9 +38,11 @@ if(Nin.TryParse(sampleNormal, out info)) {
 
 // You can also get more detailed information about validation errors
 // For example:
-Nin.Validate("123456"); //Returns NinValidation.TooShort
-Nin.Validate("00000000000"); //Returns NinValidation.InvalidControlDigit
-Nin.Validate("aaaaaaaaaaa"); //Returns NinValidation.InvalidCharacter
+Debug.Assert(Nin.Validate("123456") == NinValidation.TooShort);
+Debug.Assert(Nin.Validate("123456123456") == NinValidation.TooLong);
+Debug.Assert(Nin.Validate("11111111111") == NinValidation.InvalidControlDigit);
+Debug.Assert(Nin.Validate("aaaaaaaaaaa") == NinValidation.InvalidCharacter);
+Debug.Assert(Nin.Validate(sampleD) == NinValidation.Valid);
 
 // Nins are immutable, and can be sorted/compared.
 // This also means they can be used for keys in dictionaries, or added to sets.
