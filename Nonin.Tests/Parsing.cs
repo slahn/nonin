@@ -12,19 +12,40 @@ namespace Nonin.Tests
     {
 
         [Test]
-        public void AllParsingTests()
+        public void EdgeCases()
         {
-            foreach (var n in TestData.AllTestCases())
+            // Issue #1
+            var tc1854 = new TestData.TestCase()
             {
-                var f = new Nin(n.Number);
+                Number = "03125463265",
+                NumberKind = NinKind.BirthNumber,
+                DateOfBirth = new DateTime(1854, 12, 3),
+                Gender = Gender.Female
+            };
 
-                TestDateOfBirth(n, f);
-                TestNumberType(n, f);
-                TestGender(n, f);
+            RunTests(tc1854);
+        }
 
-                TestLongConversion(n, f);
-                TestStringConversion(n, f);
+        [Test]
+        public void AllGeneratedParsingTests()
+        {
+            foreach (var testcase in TestData.AllTestCases())
+            {
+                RunTests(testcase);
             }
+        }
+
+
+        private void RunTests(TestData.TestCase testcase)
+        {
+            var nin = new Nin(testcase.Number);
+
+            TestDateOfBirth(testcase, nin);
+            TestNumberType(testcase, nin);
+            TestGender(testcase, nin);
+
+            TestLongConversion(testcase, nin);
+            TestStringConversion(testcase, nin);
         }
 
         private void TestStringConversion(TestData.TestCase n, Nin f)
