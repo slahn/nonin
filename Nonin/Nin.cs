@@ -281,7 +281,7 @@ namespace Nonin
            
 
             //Rule A
-            if (year > 54 && personalNumber >= 500 && personalNumber < 750)
+            if (year >= 54 && personalNumber >= 500 && personalNumber < 750)
             {
                 return 1800 + year;
             }
