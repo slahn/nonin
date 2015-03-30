@@ -274,6 +274,7 @@ namespace Nonin
         private static int? FindYearWithCentury(int personalNumber, int year)
         {
             //Connection between year and 3 last digits in number
+            // (see http://www.skatteetaten.no/no/Person/Folkeregister/Fodsel-og-navnevalg/Barn-fodt-i-Norge/Fodselsnummer/)
             //a) … 1854-1899, uses 749-500,
             //b) … 1900-1999, uses 499-000,
             //c) … 1940-1999, also uses 999-900
