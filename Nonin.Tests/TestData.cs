@@ -105,7 +105,11 @@ namespace Nonin.Tests
 
         public static IEnumerable<TestCase> ReadTestDataFromFile(string fileName)
         {
-            foreach (var line in File.ReadLines(fileName))
+            var asmDir = Path.GetDirectoryName(typeof(TestData).Assembly.Location);
+            var filePath = Path.Combine(asmDir, fileName);
+            
+
+            foreach (var line in File.ReadLines(filePath))
             {
                 var parts = line.Split('\t');
 

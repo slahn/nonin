@@ -147,13 +147,7 @@ namespace Nonin
         /// </summary> 
         public static bool IsValid(string nin, params NinKind[] allowedKinds)
         {
-            Nin n;
-            if (!Nin.TryParse(nin, out n))
-            {
-                return false;
-            }
-
-            return allowedKinds.Contains(n.Kind);
+            return Validate(nin, allowedKinds: allowedKinds) == NinValidation.Valid;
         }
         
         /// <summary>
@@ -166,7 +160,24 @@ namespace Nonin
             DateTime? dob;
             return Validate(nin, out t, out dob);
         }
-        
+
+        /// <summary>
+        /// Check if the string is a valid nin, of one of the supported kinds.
+        /// </summary>        
+        /// <returns>A value indicating how the validation failed, or NinValidation.Valid.</returns>
+        public static NinValidation Validate(string nin, params NinKind[] allowedKinds)
+        {
+            NinKind typ;
+            DateTime? dob;
+            var v = Validate(nin, out typ, out dob);
+            if(v == NinValidation.Valid && !allowedKinds.Contains(typ))
+            {
+                return NinValidation.UnsupportedKind;
+            }
+
+            return v;
+        }
+
         private static NinValidation Validate(string nin, out NinKind t, out DateTime? dob)
         {
             t = NinKind.BirthNumber;
